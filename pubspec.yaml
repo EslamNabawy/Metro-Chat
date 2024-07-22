@@ -1,0 +1,39 @@
+name: metro_chat
+description: "Encrypted peer to peer retro themed chat app"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  just_audio: ^0.9.39
+  permission_handler: ^11.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  assets:
+    - assets/Sounds/splash_screen_sound_effect.mp3
+  fonts:
+    - family: GoldenAgeShad
+      fonts:
+        - asset: assets/Fonts/Golden Age Shad.ttf
+    - family: Monoton
+      fonts:
+        - asset: assets/Fonts/Monoton-Regular.ttf
+    - family: Pixellari
+      fonts:
+        - asset: assets/Fonts/Pixellari.ttf
+    - family: RetroGaming
+      fonts:
+        - asset: assets/Fonts/Retro Gaming.ttf
+
+  uses-material-design: true
