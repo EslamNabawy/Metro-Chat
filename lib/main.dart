@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metro_chat/Features/Splash/splash_screen.dart';
 
 import 'Core/Theme/app_theme.dart';
+import 'Features/Splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

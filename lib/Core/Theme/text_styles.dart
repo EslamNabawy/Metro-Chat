@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metro_chat/Core/Theme/app_colors.dart';
 
-import '../Utils/Constants/fonts.dart';
+import '../Constants/fonts.dart';
 
 class AppTextStyles {
   static const TextStyle monoton = TextStyle(
