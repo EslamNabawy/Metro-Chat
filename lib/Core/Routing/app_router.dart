@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:metro_chat/Features/Auth/sign_up_screen.dart';
 import 'package:metro_chat/Features/Home/home_screen.dart';
-import 'package:metro_chat/Features/Login/login_screen.dart';
 import 'package:metro_chat/Features/Splash/splash_screen.dart';
 
 // Enum for route names
 enum AppRoute {
   splash,
   home,
-  login,
+  signup,
 }
 
 class AppRouter {
@@ -34,11 +34,11 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/login',
-        name: AppRoute.login.name,
+        path: '/Signup',
+        name: AppRoute.signup.name,
         pageBuilder: (context, state) => _buildPage(
           state,
-          const LoginScreen(),
+          const SignupScreen(),
           _slideTransition,
         ),
       ),

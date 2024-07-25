@@ -6,7 +6,9 @@ class AppColors {
   static const Color secondary = Color(0xFFB07E07);
   static const Color background = Color(0xFF242424);
   static const Color text =
-      Colors.white; // Assuming you want white text on a dark background
+      Colors.white;
+  static const Color appBarBackground = Color(0x00FFFFFF);
+  // Assuming you want white text on a dark background
 
   // Light Theme Colors
   static const Color primaryLight = primary;

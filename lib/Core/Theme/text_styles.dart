@@ -4,20 +4,20 @@ import 'package:metro_chat/Core/Theme/app_colors.dart';
 import '../Constants/fonts.dart';
 
 class AppTextStyles {
-  static const TextStyle monoton = TextStyle(
-    fontFamily: AppFonts.monoton,
+  static TextStyle monoton = TextStyle(
+    fontFamily: AppFontsE.fonts[FontFamily.monoton],
   );
 
-  static const TextStyle golden = TextStyle(
-    fontFamily: AppFonts.golden,
+  static TextStyle golden = TextStyle(
+    fontFamily: AppFontsE.fonts[FontFamily.golden],
   );
 
-  static const TextStyle pixellari = TextStyle(
-    fontFamily: AppFonts.pixellari,
+  static TextStyle pixellari = TextStyle(
+    fontFamily: AppFontsE.fonts[FontFamily.pixellari],
   );
 
-  static const TextStyle retro = TextStyle(
-    fontFamily: AppFonts.retro,
+  static TextStyle retro = TextStyle(
+    fontFamily: AppFontsE.fonts[FontFamily.retro],
   );
 
   static TextTheme textTheme = TextTheme(

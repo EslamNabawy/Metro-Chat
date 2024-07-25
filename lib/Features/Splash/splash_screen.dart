@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   void _setupAnimation() {
     _controller =
-        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _controller.forward();
   }
@@ -37,9 +37,9 @@ class _SplashScreenState extends State<SplashScreen>
           .setAsset('assets/Sounds/splash_screen_sound_effect.mp3')
           .then((_) => _audioPlayer.play()),
     ]);
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
-        AppRouter.replace(context, AppRoute.home);
+        AppRouter.replace(context, AppRoute.signup);
       }
     });
   }
