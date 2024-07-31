@@ -5,8 +5,19 @@ import 'package:metro_chat/Core/Constants/fonts.dart';
 import 'package:metro_chat/Core/Theme/app_colors.dart';
 
 class CustomFormField extends StatelessWidget {
+  final TextEditingController controller;
+  final String? hintText; // Make hintText optional
+  final String svgIconPath;
+  final bool isPassword;
+  final String? Function(String?)? validator;
+
   const CustomFormField({
     super.key,
+    required this.controller,
+    this.hintText, // Optional hintText
+    required this.svgIconPath,
+    this.isPassword = false,
+    this.validator,
   });
 
   @override
@@ -28,7 +39,7 @@ class CustomFormField extends StatelessWidget {
               width: 40,
               child: Center(
                 child: SvgPicture.asset(
-                  'assets/Icons/username_icon.svg',
+                  svgIconPath,
                   width: 20,
                   height: 20,
                 ),
@@ -44,22 +55,25 @@ class CustomFormField extends StatelessWidget {
             ),
             Expanded(
               child: TextFormField(
+                controller: controller,
+                obscureText: isPassword,
                 enableIMEPersonalizedLearning: true,
                 maxLength: 15,
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
+                validator: validator ??
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
                 style: const TextStyle(
                   fontFamily: AppFonts.pixellari,
                   fontSize: 14,
                   color: AppColors.secondary,
                 ),
                 decoration: InputDecoration(
-                  hintText: '',
+                  hintText: hintText ?? '', // Use empty string if hintText is null
                   hintStyle: TextStyle(
                     fontFamily: AppFonts.pixellari,
                     fontSize: 14,
@@ -73,7 +87,7 @@ class CustomFormField extends StatelessWidget {
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   isDense: true,
                 ),
               ),

@@ -25,7 +25,7 @@ flutter:
 
   assets:
     - assets/Sounds/splash_screen_sound_effect.mp3
-    - assets/Icons/username_icon.svg
+    - assets/Icons/
   fonts:
     - family: GoldenAgeShad
       fonts:
