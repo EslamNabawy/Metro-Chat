@@ -11,8 +11,8 @@ import 'Widgets/custom_form_field.dart';
 import 'Widgets/sign_up_title.dart';
 import 'Widgets/spaces.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class SignupScreen extends StatelessWidget {
                   const AuthHeader(),
                   Spaces.large(),
                   const SignUpTitle(
-                    title: 'Sign Up', // Updated title to match context
+                    title: 'Sign In', // Updated title to match context
                   ),
                   Spaces.large(),
                   _UsernameField(),
@@ -37,7 +37,7 @@ class SignupScreen extends StatelessWidget {
                   Spaces.large(),
                   _SignInButton(),
                   Spaces.medium(),
-                  _buildSignInPrompt(context),
+                  _buildSignUpPrompt(context),
                 ],
               ),
             ),
@@ -47,12 +47,12 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSignInPrompt(BuildContext context) {
+  Widget _buildSignUpPrompt(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
-          'Already have an account? ',
+          'No account? ',
           style: TextStyle(
             fontFamily: AppFonts.retro,
             fontSize: 12,
@@ -61,11 +61,10 @@ class SignupScreen extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            AppRouter.go(
-                context, AppRoute.signin); // Ensure context is passed correctly
+            AppRouter.go(context, AppRoute.signup);
           },
           child: const Text(
-            'Sign In',
+            'Sign Up',
             style: TextStyle(
               fontFamily: AppFonts.golden,
               fontSize: 14,
@@ -91,10 +90,7 @@ class _UsernameField extends StatelessWidget {
                 TextSelection.collapsed(offset: state.username.length),
           iconPath: 'assets/Icons/username_icon.svg',
           onChanged: (value) {
-            // Fixed parameter name to 'value'
-            context
-                .read<SignInCubit>()
-                .updateUsername(value); // Added this line
+            context.read<SignInCubit>().updateUsername(value);
           },
         );
       },
@@ -131,7 +127,7 @@ class _SignInButton extends StatelessWidget {
       onPressed: () {
         context.read<SignInCubit>().signIn();
       },
-      text: 'Sign Up',
+      text: 'Sign In',
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:metro_chat/Features/Auth/sign_in_screen.dart';
 import 'package:metro_chat/Features/Auth/sign_up_screen.dart';
 import 'package:metro_chat/Features/Home/home_screen.dart';
 import 'package:metro_chat/Features/Splash/splash_screen.dart';
@@ -9,6 +10,24 @@ enum AppRoute {
   splash,
   home,
   signup,
+  signin,
+}
+
+extension AppRouteExtension on AppRoute {
+  String get name {
+    switch (this) {
+      case AppRoute.splash:
+        return 'splash';
+      case AppRoute.home:
+        return 'home';
+      case AppRoute.signup:
+        return 'signup';
+      case AppRoute.signin:
+        return 'signin';
+      default:
+        return '';
+    }
+  }
 }
 
 class AppRouter {
@@ -21,7 +40,7 @@ class AppRouter {
         pageBuilder: (context, state) => _buildPage(
           state,
           const SplashScreen(),
-          _slideTransition,
+          _fadeTransition,
         ),
       ),
       GoRoute(
@@ -30,16 +49,25 @@ class AppRouter {
         pageBuilder: (context, state) => _buildPage(
           state,
           const HomeScreen(),
-          _fadeSlideTransition,
+          _fadeTransition,
         ),
       ),
       GoRoute(
-        path: '/Signup',
+        path: '/signup',
         name: AppRoute.signup.name,
         pageBuilder: (context, state) => _buildPage(
           state,
           const SignupScreen(),
-          _slideTransition,
+          _fadeTransition,
+        ),
+      ),
+      GoRoute(
+        path: '/signin',
+        name: AppRoute.signin.name,
+        pageBuilder: (context, state) => _buildPage(
+          state,
+          const SignInScreen(),
+          _fadeTransition,
         ),
       ),
     ],
@@ -62,14 +90,22 @@ class AppRouter {
       {Map<String, String> queryParams = const {}, Object? extra}) {
     _routeStack.add(route);
     _ensureStackLimit();
-    context.goNamed(route.name, queryParameters: queryParams, extra: extra);
+    final routeName = route.name;
+    if (routeName.isEmpty) {
+      throw Exception("Route name cannot be empty");
+    }
+    context.goNamed(routeName, queryParameters: queryParams, extra: extra);
   }
 
   static void push(BuildContext context, AppRoute route,
       {Map<String, String> queryParams = const {}, Object? extra}) {
     _routeStack.add(route);
     _ensureStackLimit();
-    context.pushNamed(route.name, queryParameters: queryParams, extra: extra);
+    final routeName = route.name;
+    if (routeName.isEmpty) {
+      throw Exception("Route name cannot be empty");
+    }
+    context.pushNamed(routeName, queryParameters: queryParams, extra: extra);
   }
 
   static void replace(BuildContext context, AppRoute route,
@@ -79,8 +115,11 @@ class AppRouter {
     }
     _routeStack.add(route);
     _ensureStackLimit();
-    context.replaceNamed(route.name,
-        queryParameters: queryParams, extra: extra);
+    final routeName = route.name;
+    if (routeName.isEmpty) {
+      throw Exception("Route name cannot be empty");
+    }
+    context.replaceNamed(routeName, queryParameters: queryParams, extra: extra);
   }
 
   static void pop<T extends Object?>(BuildContext context, [T? result]) {
@@ -103,34 +142,18 @@ class AppRouter {
     );
   }
 
-  static Widget _slideTransition(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(1, 0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
-      child: child,
-    );
-  }
-
-  static Widget _fadeSlideTransition(
+  static Widget _fadeTransition(
       BuildContext context,
       Animation<double> animation,
       Animation<double> secondaryAnimation,
       Widget child) {
     return FadeTransition(
-      opacity: CurvedAnimation(parent: animation, curve: Curves.easeIn),
-      child: SlideTransition(
-        position: Tween<Offset>(
-          begin: const Offset(1, 0),
-          end: Offset.zero,
-        ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-        child: child,
+      opacity: CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeInOut,
+        reverseCurve: Curves.easeInOut,
       ),
+      child: child,
     );
   }
 }

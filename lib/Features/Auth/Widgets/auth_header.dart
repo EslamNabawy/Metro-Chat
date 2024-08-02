@@ -22,7 +22,7 @@ class AuthHeader extends StatelessWidget {
                   Text('Metro Chat',
                       style: TextStyle(
                           fontFamily: AppFontsE.fonts[FontFamily.monoton],
-                          fontSize: 35,
+                          fontSize: 45,
                           color: AppColors.primary)),
                   const SizedBox(height: 10),
                   Text('Fast, Secure, and Retro Cool',
