@@ -17,28 +17,40 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignInCubit(),
+      create: (context) => AuthCubit(),
       child: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                children: [
-                  const AuthHeader(),
-                  Spaces.large(),
-                  const SignUpTitle(
-                    title: 'Sign Up', // Updated title to match context
-                  ),
-                  Spaces.large(),
-                  _UsernameField(),
-                  Spaces.medium(),
-                  _PasswordField(),
-                  Spaces.large(),
-                  _SignInButton(),
-                  Spaces.medium(),
-                  _buildSignInPrompt(context),
-                ],
+              child: BlocListener<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state.error != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.error!)),
+                    );
+                  }
+                  if (state.user != null) {
+                    AppRouter.go(context, AppRoute.home);
+                  }
+                },
+                child: Column(
+                  children: [
+                    const AuthHeader(),
+                    Spaces.large(),
+                    const SignUpTitle(
+                      title: 'Sign Up',
+                    ),
+                    Spaces.large(),
+                    _UsernameField(),
+                    Spaces.medium(),
+                    _PasswordField(),
+                    Spaces.large(),
+                    _SignUpButton(),
+                    Spaces.medium(),
+                    _buildSignInPrompt(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -61,8 +73,7 @@ class SignupScreen extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            AppRouter.go(
-                context, AppRoute.signin); // Ensure context is passed correctly
+            AppRouter.go(context, AppRoute.signin);
           },
           child: const Text(
             'Sign In',
@@ -82,19 +93,16 @@ class SignupScreen extends StatelessWidget {
 class _UsernameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignInCubit, SignInState>(
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        return _buildFormField(
-          label: 'User Name',
+        return CustomFormField(
           controller: TextEditingController(text: state.username)
             ..selection =
                 TextSelection.collapsed(offset: state.username.length),
-          iconPath: 'assets/Icons/username_icon.svg',
+          svgIconPath: 'assets/Icons/username_icon.svg',
+          hintText: 'Username',
           onChanged: (value) {
-            // Fixed parameter name to 'value'
-            context
-                .read<SignInCubit>()
-                .updateUsername(value); // Added this line
+            context.read<AuthCubit>().updateUsername(value);
           },
         );
       },
@@ -105,17 +113,17 @@ class _UsernameField extends StatelessWidget {
 class _PasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignInCubit, SignInState>(
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        return _buildFormField(
-          label: 'Password',
+        return CustomFormField(
           controller: TextEditingController(text: state.password)
             ..selection =
                 TextSelection.collapsed(offset: state.password.length),
-          iconPath: 'assets/Icons/password_icon.svg',
+          svgIconPath: 'assets/Icons/password_icon.svg',
+          hintText: 'Password',
           isPassword: true,
           onChanged: (value) {
-            context.read<SignInCubit>().updatePassword(value);
+            context.read<AuthCubit>().updatePassword(value);
           },
         );
       },
@@ -123,44 +131,21 @@ class _PasswordField extends StatelessWidget {
   }
 }
 
-class _SignInButton extends StatelessWidget {
+class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      size: ButtonSize.large,
-      onPressed: () {
-        context.read<SignInCubit>().signIn();
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        return CustomButton(
+          size: ButtonSize.large,
+          onPressed: state.isLoading
+              ? null
+              : () {
+                  context.read<AuthCubit>().signUp();
+                },
+          text: state.isLoading ? 'Signing Up...' : 'Sign Up',
+        );
       },
-      text: 'Sign Up',
     );
   }
-}
-
-Widget _buildFormField({
-  required String label,
-  required TextEditingController controller,
-  required String iconPath,
-  bool isPassword = false,
-  required Function(String) onChanged,
-}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        label,
-        style: const TextStyle(
-          fontFamily: AppFonts.retro,
-          fontSize: 13,
-          color: AppColors.secondary,
-        ),
-      ),
-      const SizedBox(height: 8),
-      CustomFormField(
-        controller: controller,
-        svgIconPath: iconPath,
-        isPassword: isPassword,
-        onChanged: onChanged,
-      ),
-    ],
-  );
 }

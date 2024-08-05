@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "658327615717",
+    "project_id": "metro-chat-ed6a0",
+    "storage_bucket": "metro-chat-ed6a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658327615717:android:b3817524d4b288a968bc0c",
+        "android_client_info": {
+          "package_name": "com.et.MetroChat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJqT-lKXhInNqTx-OHWPdJna-yfzHf9ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658327615717:android:b26cf215d3445cd468bc0c",
+        "android_client_info": {
+          "package_name": "com.example.metro_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJqT-lKXhInNqTx-OHWPdJna-yfzHf9ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658327615717:android:236219115c2a112f68bc0c",
+        "android_client_info": {
+          "package_name": "com.metrochat.metrochat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJqT-lKXhInNqTx-OHWPdJna-yfzHf9ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

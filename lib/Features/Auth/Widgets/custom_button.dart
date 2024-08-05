@@ -7,7 +7,7 @@ enum ButtonSize { small, medium, large }
 
 class CustomButton extends StatefulWidget {
   final ButtonSize size;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String text;
 
   const CustomButton({
@@ -50,7 +50,7 @@ class CustomButtonState extends State<CustomButton> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: widget.onPressed,
+          onTap: widget.onPressed ?? () {},
           onTapDown: (_) => setState(() => _isPressed = true),
           onTapUp: (_) => setState(() => _isPressed = false),
           onTapCancel: () => setState(() => _isPressed = false),
